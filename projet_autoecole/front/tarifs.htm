@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Castellane Auto — Tarifs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --rouge: #C0392B; --rouge2: #96281B; --or: #D4A017;
+            --noir: #1A1A1A;  --gris: #F5F4F0; --blanc: #FFFFFF; --texte: #2D2D2D;
+        }
+        body { font-family: 'DM Sans', sans-serif; color: var(--texte); background: var(--blanc); line-height: 1.7; }
+
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--noir);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 3rem; height: 68px;
+            border-bottom: 3px solid var(--rouge);
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--blanc); letter-spacing: 1px; }
+        .logo span { color: var(--or); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #ccc; text-decoration: none; font-size: .9rem; letter-spacing: .5px; text-transform: uppercase; transition: color .2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--or); }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--noir) 60%, var(--rouge2) 100%);
+            padding: 5rem 3rem 4rem; color: var(--blanc);
+        }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; }
+        .page-header h1 em { font-style: normal; color: var(--or); }
+        .page-header p { color: #aaa; margin-top: .8rem; font-size: 1.05rem; }
+
+        main { max-width: 1100px; margin: 0 auto; padding: 5rem 3rem; }
+
+        .section-title {
+            font-family: 'Playfair Display', serif; font-size: 1.8rem;
+            color: var(--noir); margin-bottom: 2rem;
+            padding-bottom: .8rem; border-bottom: 2px solid var(--gris);
+        }
+        .section-title span { color: var(--rouge); }
+
+        /* Grille de tarifs */
+        .tarifs-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem; margin-bottom: 4rem;
+        }
+        .tarif-card {
+            border: 1px solid #e5e5e5; padding: 2rem;
+            position: relative; transition: box-shadow .2s;
+        }
+        .tarif-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,.08); }
+        .tarif-card.featured {
+            border-color: var(--rouge);
+            border-width: 2px;
+        }
+        .tarif-card.featured::before {
+            content: 'Recommandé';
+            position: absolute; top: -1px; right: 20px;
+            background: var(--rouge); color: #fff;
+            font-size: .7rem; padding: .2rem .8rem;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+        .tarif-card .mode { font-size: .75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--rouge); margin-bottom: .8rem; }
+        .tarif-card h3 { font-size: 1.2rem; margin-bottom: .5rem; }
+        .tarif-card .prix { font-size: 2.5rem; font-weight: 700; color: var(--noir); margin: 1rem 0; }
+        .tarif-card .prix sup { font-size: 1rem; vertical-align: super; }
+        .tarif-card .prix .unite { font-size: .9rem; font-weight: 400; color: #888; }
+        .tarif-card ul { list-style: none; margin-top: 1rem; }
+        .tarif-card ul li { padding: .3rem 0; font-size: .9rem; color: #555; }
+        .tarif-card ul li::before { content: '✓ '; color: var(--rouge); font-weight: 700; }
+
+        /* Tableau code */
+        .table-tarifs {
+            width: 100%; border-collapse: collapse; margin-bottom: 4rem;
+            font-size: .95rem;
+        }
+        .table-tarifs th {
+            background: var(--noir); color: #fff;
+            padding: .9rem 1.2rem; text-align: left;
+        }
+        .table-tarifs td { padding: .9rem 1.2rem; border-bottom: 1px solid #f0f0f0; }
+        .table-tarifs tr:nth-child(even) td { background: var(--gris); }
+        .table-tarifs .prix-td { font-weight: 700; color: var(--rouge); }
+
+        /* Note */
+        .note {
+            background: #fff8e6; border-left: 4px solid var(--or);
+            padding: 1.2rem 1.5rem; margin-bottom: 3rem;
+            font-size: .9rem; color: #555;
+        }
+
+        footer {
+            background: #111; color: #555; text-align: center;
+            padding: 1.5rem; font-size: .8rem; border-top: 1px solid #222;
+        }
+        footer a { color: var(--rouge); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">Castellane <span>Auto</span></div>
+    <ul class="nav-links">
+        <li><a href="accueil.htm">Accueil</a></li>
+        <li><a href="tarifs.htm" class="active">Tarifs</a></li>
+        <li><a href="photos.htm">Photos</a></li>
+        <li><a href="accueil.htm#contact">Contact</a></li>
+        <li><a href="login.php" style="color:#D4A017;border:1px solid rgba(212,160,23,.4);padding:.2rem .8rem;border-radius:3px;">Mon espace</a></li>
+    </ul>
+</nav>
+
+<div class="page-header">
+    <h1>Nos <em>Tarifs</em></h1>
+    <p>Transparents, compétitifs et sans surprise. Choisissez la formule qui vous convient.</p>
+</div>
+
+<main>
+
+    <h2 class="section-title">Leçons de conduite — <span>Permis B</span></h2>
+
+    <div class="tarifs-grid">
+        <!-- À l'heure -->
+        <div class="tarif-card">
+            <div class="mode">Formule 1 — À l'heure</div>
+            <h3>Leçon à la carte</h3>
+            <div class="prix"><sup>€</sup>35<span class="unite"> / heure</span></div>
+            <ul>
+                <li>Aucun engagement</li>
+                <li>Moniteur attitré</li>
+                <li>Véhicule double commande</li>
+                <li>Bilan de conduite inclus</li>
+            </ul>
+        </div>
+
+        <!-- Forfait pack -->
+        <div class="tarif-card featured">
+            <div class="mode">Formule 2 — Forfait Pack</div>
+            <h3>Pack 10 heures</h3>
+            <div class="prix"><sup>€</sup>320<span class="unite"> / 10 h</span></div>
+            <ul>
+                <li>Économisez 30 € vs à l'heure</li>
+                <li>Valable 6 mois</li>
+                <li>Moniteur attitré</li>
+                <li>Bilan intermédiaire offert</li>
+                <li>Inscription code offerte</li>
+            </ul>
+        </div>
+
+        <!-- Forfait global -->
+        <div class="tarif-card">
+            <div class="mode">Formule 3 — Forfait Global</div>
+            <h3>Formation complète</h3>
+            <div class="prix"><sup>€</sup>1 200<span class="unite"> tout inclus</span></div>
+            <ul>
+                <li>Code + conduite (30 h min.)</li>
+                <li>Frais d'examen inclus</li>
+                <li>Accompagnement examen</li>
+                <li>1 heure de rattrapage offerte</li>
+                <li>Suivi personnalisé garanti</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2 class="section-title">Code de la route</h2>
+    <table class="table-tarifs">
+        <thead>
+            <tr><th>Prestation</th><th>Détail</th><th>Prix</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Inscription code</td>
+                <td>Accès illimité salle de code pendant 1 an</td>
+                <td class="prix-td">30 €</td>
+            </tr>
+            <tr>
+                <td>Frais d'examen code</td>
+                <td>Présentation à l'épreuve théorique générale</td>
+                <td class="prix-td">30 €</td>
+            </tr>
+            <tr>
+                <td>Frais d'examen permis</td>
+                <td>Accompagnement et frais de passage</td>
+                <td class="prix-td">80 €</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="section-title">Conduite accompagnée (AAC)</h2>
+    <table class="table-tarifs">
+        <thead>
+            <tr><th>Prestation</th><th>Détail</th><th>Prix</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bilan initial (obligatoire)</td>
+                <td>Évaluation de départ — 2 heures</td>
+                <td class="prix-td">70 €</td>
+            </tr>
+            <tr>
+                <td>Leçon de conduite AAC</td>
+                <td>À l'heure, avec moniteur</td>
+                <td class="prix-td">35 €</td>
+            </tr>
+            <tr>
+                <td>Rendez-vous pédagogique</td>
+                <td>Bilan à 3 000 km — 1 heure obligatoire</td>
+                <td class="prix-td">35 €</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        💡 <strong>Bon à savoir :</strong> Tous nos tarifs sont TTC. Le passage à l'examen est accompagné par votre moniteur attitré.
+        Possibilité de paiement en plusieurs fois. Nous contacter pour un devis personnalisé.
+    </div>
+
+</main>
+
+<footer>
+    &copy; 2025 Castellane Auto — Toulon &nbsp;|&nbsp;
+    <a href="accueil.htm">Accueil</a> &nbsp;·&nbsp;
+    <a href="tarifs.htm">Tarifs</a> &nbsp;·&nbsp;
+    <a href="photos.htm">Photos</a>
+</footer>
+
+</body>
+</html>

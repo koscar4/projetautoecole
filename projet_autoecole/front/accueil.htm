@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Castellane Auto — Auto-école à Toulon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --rouge:   #C0392B;
+            --rouge2:  #96281B;
+            --or:      #D4A017;
+            --noir:    #1A1A1A;
+            --gris:    #F5F4F0;
+            --blanc:   #FFFFFF;
+            --texte:   #2D2D2D;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--texte);
+            background: var(--blanc);
+            line-height: 1.7;
+        }
+
+        /* NAV */
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--noir);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 3rem; height: 68px;
+            border-bottom: 3px solid var(--rouge);
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; color: var(--blanc); letter-spacing: 1px;
+        }
+        .logo span { color: var(--or); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: #ccc; text-decoration: none; font-size: .9rem;
+            letter-spacing: .5px; text-transform: uppercase;
+            transition: color .2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--or); }
+
+        /* HERO */
+        .hero {
+            min-height: 88vh;
+            background: linear-gradient(135deg, var(--noir) 55%, var(--rouge2) 100%);
+            display: flex; align-items: center;
+            padding: 6rem 3rem 4rem;
+            position: relative; overflow: hidden;
+        }
+        .hero::after {
+            content: '';
+            position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
+            width: 550px; height: 550px;
+            border: 2px solid rgba(212,160,23,.15);
+            border-radius: 50%;
+        }
+        .hero-content { max-width: 650px; z-index: 1; }
+        .hero-eyebrow {
+            font-size: .8rem; color: var(--or);
+            text-transform: uppercase; letter-spacing: 3px;
+            margin-bottom: 1.2rem;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.6rem, 5vw, 4.2rem);
+            color: var(--blanc); line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 em { font-style: normal; color: var(--or); }
+        .hero p {
+            color: #ccc; font-size: 1.1rem;
+            max-width: 500px; margin-bottom: 2.5rem;
+        }
+        .btn-hero {
+            display: inline-block;
+            background: var(--rouge); color: var(--blanc);
+            padding: .9rem 2.4rem; border-radius: 2px;
+            text-decoration: none; font-weight: 500;
+            letter-spacing: .5px; transition: background .2s;
+        }
+        .btn-hero:hover { background: var(--rouge2); color: #fff; }
+        .btn-outline {
+            display: inline-block; margin-left: 1rem;
+            border: 1.5px solid rgba(255,255,255,.3);
+            color: #ccc; padding: .9rem 2rem; border-radius: 2px;
+            text-decoration: none; font-size: .9rem;
+            transition: border-color .2s, color .2s;
+        }
+        .btn-outline:hover { border-color: var(--or); color: var(--or); }
+
+        /* ATOUTS */
+        .atouts {
+            background: var(--gris); padding: 5rem 3rem;
+        }
+        .atouts h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem; margin-bottom: 3rem;
+            text-align: center; color: var(--noir);
+        }
+        .atouts-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem; max-width: 1000px; margin: 0 auto;
+        }
+        .atout {
+            background: var(--blanc); padding: 2rem 1.5rem;
+            border-top: 3px solid var(--rouge); text-align: center;
+        }
+        .atout .icon { font-size: 2.2rem; margin-bottom: 1rem; }
+        .atout h3 { font-size: 1rem; margin-bottom: .5rem; color: var(--noir); }
+        .atout p { font-size: .9rem; color: #666; }
+
+        /* SECTION PERMIS */
+        .permis-section {
+            padding: 5rem 3rem; max-width: 1100px; margin: 0 auto;
+        }
+        .permis-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem; margin-bottom: 2rem; color: var(--noir);
+        }
+        .permis-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+        .permis-card {
+            border: 1px solid #e0e0e0; padding: 1.8rem;
+            position: relative; overflow: hidden;
+            transition: box-shadow .2s;
+        }
+        .permis-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,.08); }
+        .permis-card .badge-type {
+            display: inline-block; background: var(--rouge);
+            color: #fff; font-size: .7rem; padding: .2rem .6rem;
+            letter-spacing: 1px; text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .permis-card h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+        .permis-card p { font-size: .9rem; color: #555; }
+
+        /* CONTACT */
+        .contact {
+            background: var(--noir); color: var(--blanc);
+            padding: 5rem 3rem; text-align: center;
+        }
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem; margin-bottom: .5rem;
+        }
+        .contact p { color: #aaa; margin-bottom: 2rem; }
+        .contact-infos {
+            display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .contact-item { text-align: center; }
+        .contact-item .label { font-size: .75rem; color: var(--or); text-transform: uppercase; letter-spacing: 1px; }
+        .contact-item .val { font-size: 1rem; color: #fff; margin-top: .3rem; }
+
+        /* FOOTER */
+        footer {
+            background: #111; color: #555;
+            text-align: center; padding: 1.5rem;
+            font-size: .8rem; border-top: 1px solid #222;
+        }
+        footer a { color: var(--rouge); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">Castellane <span>Auto</span></div>
+    <ul class="nav-links">
+        <li><a href="accueil.htm" class="active">Accueil</a></li>
+        <li><a href="tarifs.htm">Tarifs</a></li>
+        <li><a href="photos.htm">Photos</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="login.php" style="color:#D4A017;border:1px solid rgba(212,160,23,.4);padding:.2rem .8rem;border-radius:3px;">Mon espace</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <p class="hero-eyebrow">Auto-école à Toulon depuis 1998</p>
+        <h1>Votre <em>permis de conduire</em>, notre priorité.</h1>
+        <p>Moniteurs diplômés, véhicules récents, tarifs transparents. Réussissez votre permis en toute confiance avec Castellane Auto.</p>
+        <a href="tarifs.htm" class="btn-hero">Voir nos tarifs</a>
+        <a href="#contact" class="btn-outline">Nous contacter</a>
+    </div>
+</section>
+
+<section class="atouts">
+    <h2>Pourquoi choisir Castellane Auto ?</h2>
+    <div class="atouts-grid">
+        <div class="atout">
+            <div class="icon">🎓</div>
+            <h3>Moniteurs certifiés</h3>
+            <p>Tous nos moniteurs sont titulaires du BEPECASER ou du TP ECSR.</p>
+        </div>
+        <div class="atout">
+            <div class="icon">🚗</div>
+            <h3>Véhicules récents</h3>
+            <p>Parc auto renouvelé, double commande, manuel et automatique.</p>
+        </div>
+        <div class="atout">
+            <div class="icon">📅</div>
+            <h3>Horaires flexibles</h3>
+            <p>Du lundi au samedi, de 8h à 19h, pour s'adapter à votre emploi du temps.</p>
+        </div>
+        <div class="atout">
+            <div class="icon">💶</div>
+            <h3>Tarifs clairs</h3>
+            <p>Forfaits ou à l'heure, sans mauvaises surprises. Devis gratuit.</p>
+        </div>
+        <div class="atout">
+            <div class="icon">📊</div>
+            <h3>Suivi personnalisé</h3>
+            <p>Bilan de compétences et compte-rendu après chaque leçon.</p>
+        </div>
+    </div>
+</section>
+
+<section class="permis-section">
+    <h2>Nos formations</h2>
+    <div class="permis-grid">
+        <div class="permis-card">
+            <span class="badge-type">Permis B</span>
+            <h3>Voiture — Conduite traditionnelle</h3>
+            <p>Formation complète au permis B, boîte manuelle. Leçons à l'heure ou en forfait.</p>
+        </div>
+        <div class="permis-card">
+            <span class="badge-type">Permis B Automatique</span>
+            <h3>Voiture — Boîte automatique</h3>
+            <p>Idéal pour les personnes ayant des difficultés avec la boîte manuelle.</p>
+        </div>
+        <div class="permis-card">
+            <span class="badge-type">Code de la route</span>
+            <h3>Préparation à l'examen théorique</h3>
+            <p>Accès illimité à notre salle de code avec logiciel interactif agréé.</p>
+        </div>
+        <div class="permis-card">
+            <span class="badge-type">Conduite accompagnée</span>
+            <h3>AAC — À partir de 15 ans</h3>
+            <p>Apprentissage anticipé de la conduite pour une meilleure expérience avant 18 ans.</p>
+        </div>
+    </div>
+</section>
+
+<section class="contact" id="contact">
+    <h2>Nous contacter</h2>
+    <p>Notre équipe est disponible pour répondre à toutes vos questions.</p>
+    <a href="tarifs.htm" class="btn-hero">Demander un devis</a>
+    <div class="contact-infos">
+        <div class="contact-item">
+            <div class="label">Adresse</div>
+            <div class="val">27 bd du Général-de-Gaulle<br>83100 Toulon Cedex</div>
+        </div>
+        <div class="contact-item">
+            <div class="label">Téléphone</div>
+            <div class="val">04 94 XX XX XX</div>
+        </div>
+        <div class="contact-item">
+            <div class="label">Horaires</div>
+            <div class="val">Lun–Sam : 8h – 19h</div>
+        </div>
+        <div class="contact-item">
+            <div class="label">Email</div>
+            <div class="val">contact@castellane-auto.fr</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    &copy; 2025 Castellane Auto — Toulon &nbsp;|&nbsp;
+    <a href="accueil.htm">Accueil</a> &nbsp;·&nbsp;
+    <a href="tarifs.htm">Tarifs</a> &nbsp;·&nbsp;
+    <a href="photos.htm">Photos</a>
+</footer>
+
+</body>
+</html>

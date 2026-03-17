@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Castellane Auto — Photos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --rouge: #C0392B; --rouge2: #96281B; --or: #D4A017;
+            --noir: #1A1A1A; --gris: #F5F4F0; --blanc: #FFFFFF; --texte: #2D2D2D;
+        }
+        body { font-family: 'DM Sans', sans-serif; color: var(--texte); background: var(--blanc); }
+
+        nav {
+            position: sticky; top: 0; z-index: 100; background: var(--noir);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 3rem; height: 68px; border-bottom: 3px solid var(--rouge);
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--blanc); letter-spacing: 1px; }
+        .logo span { color: var(--or); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #ccc; text-decoration: none; font-size: .9rem; letter-spacing: .5px; text-transform: uppercase; transition: color .2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--or); }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--noir) 60%, var(--rouge2) 100%);
+            padding: 5rem 3rem 4rem; color: var(--blanc);
+        }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; }
+        .page-header h1 em { font-style: normal; color: var(--or); }
+        .page-header p { color: #aaa; margin-top: .8rem; }
+
+        main { max-width: 1200px; margin: 0 auto; padding: 4rem 3rem; }
+
+        .section-title {
+            font-family: 'Playfair Display', serif; font-size: 1.6rem;
+            margin-bottom: 1.5rem; color: var(--noir);
+            padding-bottom: .6rem; border-bottom: 2px solid var(--gris);
+        }
+
+        /* Galerie principale - masonry style */
+        .galerie {
+            columns: 3; column-gap: 1rem; margin-bottom: 4rem;
+        }
+        .galerie-item {
+            break-inside: avoid; margin-bottom: 1rem;
+            overflow: hidden; position: relative; cursor: pointer;
+        }
+        .galerie-item img {
+            width: 100%; display: block;
+            transition: transform .4s ease;
+            background: var(--gris); /* placeholder color */
+        }
+        .galerie-item:hover img { transform: scale(1.04); }
+        .galerie-item .caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,.7));
+            color: #fff; padding: 1.5rem .8rem .8rem;
+            font-size: .85rem; opacity: 0;
+            transition: opacity .3s;
+        }
+        .galerie-item:hover .caption { opacity: 1; }
+
+        /* Placeholder images (SVG inline) */
+        .placeholder {
+            width: 100%; display: block;
+            background: var(--gris);
+        }
+
+        /* Grille véhicules */
+        .vehicules-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem; margin-bottom: 4rem;
+        }
+        .vehicule-card {
+            border: 1px solid #e5e5e5; overflow: hidden;
+        }
+        .vehicule-card .img-zone {
+            height: 180px; background: var(--gris);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 4rem; color: #ccc;
+        }
+        .vehicule-card img { width: 100%; height: 180px; object-fit: cover; }
+        .vehicule-card .info { padding: 1.2rem; }
+        .vehicule-card .info h3 { font-size: 1rem; margin-bottom: .3rem; }
+        .vehicule-card .info p { font-size: .85rem; color: #666; }
+        .vehicule-card .badge {
+            display: inline-block; font-size: .7rem; padding: .2rem .5rem;
+            background: var(--rouge); color: #fff; margin-bottom: .5rem;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92);
+            z-index: 999; align-items: center; justify-content: center;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
+        .lightbox-close {
+            position: absolute; top: 1.5rem; right: 2rem;
+            color: #fff; font-size: 2rem; cursor: pointer; line-height: 1;
+        }
+
+        footer {
+            background: #111; color: #555; text-align: center;
+            padding: 1.5rem; font-size: .8rem; border-top: 1px solid #222;
+        }
+        footer a { color: var(--rouge); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .galerie { columns: 2; }
+            nav { padding: 0 1.5rem; }
+            main { padding: 2.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">Castellane <span>Auto</span></div>
+    <ul class="nav-links">
+        <li><a href="accueil.htm">Accueil</a></li>
+        <li><a href="tarifs.htm">Tarifs</a></li>
+        <li><a href="photos.htm" class="active">Photos</a></li>
+        <li><a href="accueil.htm#contact">Contact</a></li>
+        <li><a href="login.php" style="color:#D4A017;border:1px solid rgba(212,160,23,.4);padding:.2rem .8rem;border-radius:3px;">Mon espace</a></li>
+    </ul>
+</nav>
+
+<div class="page-header">
+    <h1>Notre <em>Galerie</em></h1>
+    <p>Découvrez notre auto-école, nos véhicules et notre équipe.</p>
+</div>
+
+<main>
+
+    <h2 class="section-title">L'auto-école en images</h2>
+
+    <!-- Galerie photo avec images du projet + placeholders SVG -->
+    <div class="galerie">
+
+        <div class="galerie-item" onclick="openLightbox(this)">
+            <img src="images/autoecole.png" alt="Logo Castellane Auto">
+            <div class="caption">Notre logo</div>
+        </div>
+
+        <div class="galerie-item" onclick="openLightbox(this)">
+            <img src="images/cours.jpg" alt="Leçon de conduite">
+            <div class="caption">En situation de conduite</div>
+        </div>
+
+        <!-- Placeholders SVG illustratifs -->
+        <div class="galerie-item">
+            <svg class="placeholder" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+                <rect width="400" height="260" fill="#E8E6E0"/>
+                <rect x="80" y="70" width="240" height="140" rx="6" fill="#D0CEC8"/>
+                <rect x="100" y="100" width="200" height="8" rx="4" fill="#B8B5AE"/>
+                <rect x="130" y="118" width="140" height="6" rx="3" fill="#C5C2BB"/>
+                <text x="200" y="200" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#888">Salle de code</text>
+            </svg>
+            <div class="caption">Salle de préparation au code</div>
+        </div>
+
+        <div class="galerie-item">
+            <svg class="placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                <rect width="400" height="300" fill="#EAE8E2"/>
+                <ellipse cx="200" cy="155" rx="140" ry="80" fill="#D4CFC8"/>
+                <rect x="130" y="120" width="140" height="70" rx="8" fill="#C2BDB5"/>
+                <rect x="150" y="140" width="100" height="30" rx="4" fill="#B0ABA3"/>
+                <text x="200" y="240" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#888">Espace accueil</text>
+            </svg>
+            <div class="caption">Notre accueil</div>
+        </div>
+
+        <div class="galerie-item">
+            <svg class="placeholder" viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+                <rect width="400" height="280" fill="#F0EDE6"/>
+                <rect x="50" y="80" width="300" height="120" rx="30" fill="#DDD9D1"/>
+                <circle cx="110" cy="210" r="28" fill="#C5C2BA"/>
+                <circle cx="290" cy="210" r="28" fill="#C5C2BA"/>
+                <rect x="160" y="95" width="80" height="50" rx="4" fill="#C8C5BC"/>
+                <text x="200" y="260" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#888">Véhicule école</text>
+            </svg>
+            <div class="caption">Nos véhicules double commande</div>
+        </div>
+
+        <div class="galerie-item">
+            <svg class="placeholder" viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg">
+                <rect width="400" height="340" fill="#E8E4DC"/>
+                <rect x="60" y="60" width="120" height="160" rx="6" fill="#D0CCC4"/>
+                <rect x="220" y="80" width="120" height="160" rx="6" fill="#D0CCC4"/>
+                <rect x="80" y="240" width="240" height="6" rx="3" fill="#C0BCB4"/>
+                <text x="200" y="310" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#888">Notre équipe</text>
+            </svg>
+            <div class="caption">Notre équipe de moniteurs</div>
+        </div>
+
+    </div>
+
+    <h2 class="section-title">Notre parc automobile</h2>
+    <div class="vehicules-grid">
+        <div class="vehicule-card">
+            <div class="img-zone">
+                <img src="images/cours.jpg" alt="Renault Clio" onerror="this.style.display='none'">
+            </div>
+            <div class="info">
+                <span class="badge">Boîte manuelle</span>
+                <h3>Renault Clio V</h3>
+                <p>Véhicule 2022 — Double commande — Idéal pour débutants</p>
+            </div>
+        </div>
+        <div class="vehicule-card">
+            <div class="img-zone">🚗</div>
+            <div class="info">
+                <span class="badge">Boîte manuelle</span>
+                <h3>Peugeot 208</h3>
+                <p>Véhicule 2021 — Double commande — Direction assistée</p>
+            </div>
+        </div>
+        <div class="vehicule-card">
+            <div class="img-zone">🚙</div>
+            <div class="info">
+                <span class="badge" style="background:#2980b9;">Automatique</span>
+                <h3>Toyota Yaris</h3>
+                <p>Véhicule 2023 — Boîte automatique — Permis B automatique</p>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+    &copy; 2025 Castellane Auto — Toulon &nbsp;|&nbsp;
+    <a href="accueil.htm">Accueil</a> &nbsp;·&nbsp;
+    <a href="tarifs.htm">Tarifs</a> &nbsp;·&nbsp;
+    <a href="photos.htm">Photos</a>
+</footer>
+
+<script>
+function openLightbox(el) {
+    var img = el.querySelector('img');
+    if (!img) return;
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+}
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+});
+</script>
+
+</body>
+</html>
